@@ -1,34 +1,40 @@
+import java.math.BigInteger;
+
 public class Main {
     public static void main(String[] args) {
 
+        //Par sûreté, il est couramment recommandé que la taille des clés RSA soit au moins de 2048 bits.
+        int bitLength = 128;//longueur de clé à faire varier
+
         ////////CREATION DES CLES POUR ALICE////////
-        System.out.println("CREATION DES CLES D'ALICE");
-        ClesPubPriv clesAlice = new ClesPubPriv();
-        System.out.println("Module de chiffrement : " + clesAlice.getModChiffr());
-        System.out.println("Exposant de chiffrement : " + clesAlice.getExpoChiffr());
-        System.out.println("Exposant de Déchiffrement : " + clesAlice.getExpoDechiffr());
+        System.out.println("1 - CREATION DES CLES D'ALICE");
+        GenerCles clesAlice = new GenerCles(bitLength);
+        System.out.println("Module de chiffrement : " + clesAlice.getModulChiffr() );
+        System.out.println("Exposant de chiffrement : " + clesAlice.getClesPublic());
+        System.out.println("Exposant de Déchiffrement : " + clesAlice.getClesPrivee());
         System.out.println("");
 
-        ///////creation du module RSA pour alice/////////////
-        System.out.println("CREATION DU RSA SELON LES CLES D'ALICE");
-        RSA rsaAlice = new RSA(clesAlice);
+        ///////CREATION MODULE RSA /////////////
+        System.out.println("2 - CREATION DU RSA en prenant les clés d'Alice");
+        RSA rsa = new RSA(clesAlice);
         System.out.println("");
-        /////////récupération et traitement du texte/////////
-        System.out.println("RECUPERATION ET TRAITEMENT DU TEXTE");
-        System.out.println("bob tape son texte pour Alice");
+        /////////RECUP + TRAITEMENT DU TEXTE/////////
+        System.out.println("3 - RECUPERATION ET TRAITEMENT DU TEXTE");
+        BigInteger messageClair = new BigInteger("123447");
+        System.out.println("Le message clair de Bob : " + messageClair);
+        ////////////////////////////////////////////////////////////////
+        //c'est là que tu mets ta production BASTIEN///////////////////
         System.out.println("numerisation + decoupage du texte de bob");
-        //c'est là que tu mets ta production bastien
         System.out.println("");
-
         /////OPERATION DE CRYPTAGE ////////////
-        System.out.println("CRYPTAGE DU TEXTE AVEC CLE PUBLIC D'ALICE");
-        //appel de la fonction avec RSA d'alice, RSA crypte avec clé public d'alice
-        //affichage du texte crypté
+        System.out.println("4 - CRYPTAGE DU TEXTE AVEC CLE PUBLIC D'ALICE");
+        BigInteger messagCrypt = rsa.Crypt(messageClair);
+        System.out.println("Le message crypté : " + messagCrypt);
         System.out.println("");
-
         /////////////OPERATION DE DECRYPTAGE////////////
-        System.out.println("DECRYPTAGE DU TEXTE  CHIFFRE AVEC CLE PRIVEEE D'ALICE");
-        //alice va  utilisé son RSA + clé privé pour  décrypter
-        //affichage du message en clair
+        System.out.println("5 - DECRYPTAGE DU TEXTE  CHIFFRE AVEC CLE PRIVEEE D'ALICE");
+        BigInteger messagDecrypt = rsa.Decrypt(messagCrypt);
+        System.out.println("message décrypté  : " + messagDecrypt);
+        //il va manquer la réunification des paquets ainsi que la retraduction des biginteger en string
     }
 }
