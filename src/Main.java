@@ -5,7 +5,9 @@ public class Main {
 
         //Par sûreté, il est couramment recommandé que la taille des clés RSA soit au moins de 2048 bits.
         int bitLength = 128;//longueur de clé à faire varier
+        GenerCles generCles =new GenerCles(bitLength);
 
+        /*
         ////////CREATION DES CLES POUR ALICE////////
         System.out.println("1 - CREATION DES CLES D'ALICE");
         GenerCles clesAlice = new GenerCles(bitLength);
@@ -36,5 +38,7 @@ public class Main {
         BigInteger messagDecrypt = rsa.Decrypt(messagCrypt);
         System.out.println("message décrypté  : " + messagDecrypt);
         //il va manquer la réunification des paquets ainsi que la retraduction des biginteger en string
+        */
+
     }
 }
