@@ -1,8 +1,6 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-
-
 public class GenerCles {
 
     private final static BigInteger ONE = new BigInteger("1");
